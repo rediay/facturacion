@@ -32,14 +32,22 @@ namespace facturacion.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<ProductEntity>> GetProductEntity(int id)
         {
-            var productEntity = await _context.Products.FindAsync(id);
-
-            if (productEntity == null)
+            try
             {
-                return NotFound();
-            }
+                var productEntity = await _context.Products.FindAsync(id);
 
-            return productEntity;
+                if (productEntity == null)
+                {
+                    return NotFound();
+                }
+
+                return productEntity;
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            
         }
 
         // PUT: api/Products/5
@@ -78,10 +86,19 @@ namespace facturacion.Controllers
         [HttpPost]
         public async Task<ActionResult<ProductEntity>> PostProductEntity(ProductEntity productEntity)
         {
-            _context.Products.Add(productEntity);
-            await _context.SaveChangesAsync();
+            try
+            {
+                _context.Products.Add(productEntity);
+                await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetProductEntity", new { id = productEntity.Id }, productEntity);
+                //return CreatedAtAction("GetProductEntity", new { id = productEntity.Id }, productEntity);
+                return Ok(productEntity);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            
         }
 
         // DELETE: api/Products/5

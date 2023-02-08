@@ -38,6 +38,8 @@ namespace facturacion
             {
                 cfg.UseSqlServer(Configuration.GetConnectionString("DevConnection"));
             });
+
+            services.AddTransient<SeedDb>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

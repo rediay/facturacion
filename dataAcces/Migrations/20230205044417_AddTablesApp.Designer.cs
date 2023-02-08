@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using dataAcces;
 
 namespace dataAcces.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20230205044417_AddTablesApp")]
+    partial class AddTablesApp
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -29,10 +31,16 @@ namespace dataAcces.Migrations
                     b.Property<int?>("BillsId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("CantidadPedida")
+                        .HasColumnType("int");
+
                     b.Property<int?>("ProductId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("QuantityOrdered")
+                    b.Property<int?>("idProducto")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("idVentas")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -54,7 +62,7 @@ namespace dataAcces.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("FullSale")
+                    b.Property<int?>("TotalVenta")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -70,7 +78,7 @@ namespace dataAcces.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Price")
                         .HasColumnType("nvarchar(max)");
@@ -79,10 +87,6 @@ namespace dataAcces.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("Name")
-                        .IsUnique()
-                        .HasFilter("[Name] IS NOT NULL");
 
                     b.ToTable("Products");
                 });

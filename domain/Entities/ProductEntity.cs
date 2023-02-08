@@ -15,5 +15,7 @@ namespace domain.Entities
         public string? Price { get; set; }
 
         public string? Stock { get; set; }
+
+        public virtual ICollection<BillDetailEntity> BillDetails { get; set; }
     }
 }

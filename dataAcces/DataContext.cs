@@ -14,5 +14,16 @@ namespace dataAcces
         { }
 
         public DbSet<ProductEntity> Products { get; set; }
+        public DbSet<BillEntity> Bills { get; set; }
+        public DbSet<BillDetailEntity> BillDetails { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<ProductEntity>()
+                .HasIndex(t => t.Name)
+                .IsUnique();
+        }
     }
 }
